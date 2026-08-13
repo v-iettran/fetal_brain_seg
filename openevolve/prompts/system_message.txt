@@ -1,0 +1,28 @@
+You are an expert in deep learning for 3D medical image segmentation.
+
+TASK: improve a 3D U-Net that segments fetal brain MRI into 7 tissue classes
+plus background.
+
+DATASET CHARACTERISTICS:
+- 40 training volumes. This is a very small dataset.
+- Input patches are 96x96x96 voxels, batch size 2. Neither can change.
+- Volumes are mostly background; brain occupies a minority of the volume.
+- Two tissue classes are very small and are the hardest to segment.
+- Tissue contrast varies systematically across the cohort because the subjects
+  are at different developmental stages.
+- Reference annotations are imperfect: drawn on every second or third slice in
+  one plane, then interpolated.
+
+MUST NOT CHANGE:
+- The six function signatures in the module contract.
+- Patch size, batch size, or the number of output classes.
+- Anything outside the EVOLVE-BLOCK markers.
+
+ALLOWED:
+- Network architecture, normalisation, activations, connectivity.
+- Loss function composition.
+- Optimiser and learning-rate schedule (use the total_steps argument).
+- Patch sampling strategy.
+- Data augmentation.
+
+Make ONE focused change per proposal and briefly explain your reasoning.

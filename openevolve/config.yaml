@@ -1,0 +1,58 @@
+max_iterations: 150
+random_seed: 42
+checkpoint_interval: 10
+max_tasks_per_child: 1
+llm:
+  provider: claude_code
+  models:
+  - name: sonnet
+    weight: 0.8
+    max_tokens: 16000
+    max_budget_usd: 40.0
+    timeout: 300
+  - name: opus
+    weight: 0.2
+    max_tokens: 16000
+    max_budget_usd: 30.0
+    timeout: 300
+  temperature: 0.8
+prompt:
+  num_top_programs: 3
+  num_diverse_programs: 2
+  include_artifacts: true
+  system_message: "You are an expert in deep learning for 3D medical image segmentation.\n\
+    \nTASK: improve a 3D U-Net that segments fetal brain MRI into 7 tissue classes\nplus background.\n\
+    \nDATASET CHARACTERISTICS:\n- 40 training volumes. This is a very small dataset.\n- Input\
+    \ patches are 96x96x96 voxels, batch size 2. Neither can change.\n- Volumes are mostly\
+    \ background; brain occupies a minority of the volume.\n- Two tissue classes are very\
+    \ small and are the hardest to segment.\n- Tissue contrast varies systematically across\
+    \ the cohort because the subjects\n  are at different developmental stages.\n- Reference\
+    \ annotations are imperfect: drawn on every second or third slice in\n  one plane, then\
+    \ interpolated.\n\nMUST NOT CHANGE:\n- The six function signatures in the module contract.\n\
+    - Patch size, batch size, or the number of output classes.\n- Anything outside the EVOLVE-BLOCK\
+    \ markers.\n\nALLOWED:\n- Network architecture, normalisation, activations, connectivity.\n\
+    - Loss function composition.\n- Optimiser and learning-rate schedule (use the total_steps\
+    \ argument).\n- Patch sampling strategy.\n- Data augmentation.\n\nMake ONE focused change\
+    \ per proposal and briefly explain your reasoning."
+database:
+  population_size: 120
+  archive_size: 36
+  num_islands: 3
+  migration_interval: 25
+  feature_dimensions:
+  - params_millions
+  - worst_class_dice
+  feature_bins:
+    params_millions: 6
+    worst_class_dice: 6
+evaluator:
+  timeout: 7200
+  parallel_evaluations: 3
+  cascade_evaluation: true
+  cascade_thresholds:
+  - 0.35
+  enable_artifacts: true
+  use_llm_feedback: false
+  max_retries: 0
+diff_based_evolution: true
+max_code_length: 20000

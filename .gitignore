@@ -1,0 +1,39 @@
+# Data and caches
+mri_gz/
+cache/
+*.npy
+*.nii.gz
+*.ckpt
+*.pth
+*.pt
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+*.egg-info/
+dist/
+build/
+
+# OpenEvolve / experiment outputs (JSON results are kept)
+results/openevolve_output/
+results/figures/*.png
+results/sealed_test/
+openevolve/openevolve_output/
+**/openevolve_output/
+*.log
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Secrets
+.env
+.env.*

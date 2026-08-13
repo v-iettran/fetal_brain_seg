@@ -1,0 +1,12 @@
+{
+  "openevolve/harness/__init__.py": "e5acbbc1756079792a24bcdbe3882e37d89e7a28f76e35d4fb019a2f0028b8f8",
+  "openevolve/harness/constants.py": "8ffea8ecbaa9c484c60fe905c8a84cad4a91411a0b2d9a9bc73338a9f8cce5bf",
+  "openevolve/harness/prepare.py": "bb8447496448b0d43c52b105e8f0808c94130b3d82dddcc5ee03e0c09afd6e30",
+  "openevolve/harness/data.py": "e0641ab448aa578ed50ff570135a5d8ac1a4fb27d356c4ae7170e670c3698dcd",
+  "openevolve/harness/device.py": "4be7c2e66ea2eb9e5ee1efd22c854b07337abaf7c17132d4eab7378b49576dc9",
+  "openevolve/harness/train_loop.py": "70599392dbf0fc04e518b282c58b99b01dc23bbb4ad5c7a154e9f223c9bcba5a",
+  "openevolve/harness/infer.py": "675f63679022f41351f787f962301967bd246eb58d650042d465c30040446b58",
+  "openevolve/harness/guards.py": "82802ab7b1538d0ad15c37d26a7fe054f5b3fabf44dda9baa2fa88493afc72dc",
+  "openevolve/evaluator.py": "5402c21d7b81813270d840ff289939ea715bcb67d58f063bb9f8c3cae1144213",
+  "src/metrics.py": "1dc54a74fbb87b9eb52787a041f41164fac05e4496c68c03aeb87874cb16c150"
+}

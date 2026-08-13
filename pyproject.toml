@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "feta-segmentation"
+version = "0.1.0"
+description = "FeTA fetal brain tissue segmentation — Track A metrics/splits and Track B OpenEvolve"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "FeTA project team" }]
+dependencies = [
+    "openevolve==0.3.2",
+    "torch>=2.2",
+    "nibabel>=5.2",
+    "numpy>=1.26",
+    "scipy>=1.12",
+    "optuna>=3.6",
+    "pyyaml>=6.0",
+    "dacite>=1.9.2",
+    "matplotlib>=3.8",
+    "tqdm>=4.66",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-timeout>=2.3",
+]
+
+[tool.setuptools]
+py-modules = ["config"]
+
+[tool.setuptools.packages.find]
+include = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "openevolve/tests"]
+addopts = "-q --strict-markers"
+markers = [
+    "cuda: requires NVIDIA CUDA and the production A6000 profile",
+    "slow: long-running training or evolution",
+    "gpu: requires a GPU (CUDA or MPS)",
+    "llm: incurs LLM API/CLI cost",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
