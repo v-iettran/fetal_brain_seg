@@ -6,9 +6,7 @@ from skimage.measure import euler_number
 
 HD95_PENALTY = 374.0  # max possible distance in mm
 
-
 # INDIVIDUAL METRICS
-
 def dice(pred, gt):
     """
     DICE measures overlap: 0 = no overlap, 1 = perfect. Our primary metric.
@@ -25,16 +23,17 @@ def dice(pred, gt):
         # 2 × (voxels in both) / (voxels in A + voxels in B)
         return float(2 * intersection / (pred_sum + gt_sum)) 
 
-
 def hd95(pred, gt, voxel_spacing):
     """
     HD95 measures boundary error (the 95th percentile of the distance between the boundaries of two masks - perdicted and truth).
     """
     pred_sum = np.sum(pred)
     gt_sum = np.sum(gt)
+    if pred_sum == 0 and gt_sum == 0:
+        return 0.0 # both no tissue
+    elif pred_sum == 0 or gt_sum == 0:
+        return HD95_PENALTY # one has tissue, the other does not 
 
-    if pred_sum == 0 or gt_sum == 0:
-        return HD95_PENALTY
 
     # step 1: extract surface voxels
     pred_surface = pred & ~binary_erosion(pred)
@@ -56,7 +55,6 @@ def hd95(pred, gt, voxel_spacing):
 
     return float(np.percentile(all_distances, 95))
 
-
 def volume_similarity(pred, gt):
     """
     VOLUME SIMILARITY measures if the total volume is right (ignoring the location of that volume)
@@ -71,8 +69,6 @@ def volume_similarity(pred, gt):
     else:
         # VS = 1 - |volumen_pred - volumen_gt| / (volumen_pred + volumen_gt)
         return float(1 - abs(pred_sum - gt_sum) / (pred_sum + gt_sum)) 
-
-
 
 def euler_diff(pred, gt):
     """
@@ -93,7 +89,6 @@ def euler_diff(pred, gt):
     return float(abs(euler_pred - euler_gt))
 
 
-
 # Combine metrics for one class
 def _metrics_for_class(pred, gt, voxel_spacing):
     """
@@ -111,19 +106,15 @@ def compute_metrics(prediction, ground_truth, voxel_spacing):
     """
     Compute segmentation metrics for each tissue class
     """
-
     classes = [1, 2, 3, 4, 5, 6, 7]
     results = {}
-
     for c in classes:
         pred_c = (prediction == c)
         gt_c   = (ground_truth == c)
         results[c] = _metrics_for_class(pred_c, gt_c, voxel_spacing)
-
     # mean across all 7 classes
     results["mean"] = {
         metric: np.mean([results[c][metric] for c in classes])
         for metric in results[1]
     }
-
     return results
