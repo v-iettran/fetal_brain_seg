@@ -78,11 +78,11 @@ print(img.header)          # dimensions, spacing, data type
 print(img.header.get_zooms())   # voxel spacing in mm, e.g. (0.547, 0.547, 0.547)
 ```
 
-### **What we do NOT have**
+### **Metadata**
 
 > The original FeTA release ships a file called `participants.tsv` containing
 > **gestational age** (how many weeks pregnant) and a **pathology flag** (whether the
-> brain is developing normally or has an abnormality). **This copy does not include it.**
+> brain is developing normally or has an abnormality). It is now available under `/results`.
 
 This matters, because both are scientifically important:
 
