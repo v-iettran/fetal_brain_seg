@@ -1,7 +1,21 @@
-# FeTA segmentation — Track B (OpenEvolve)
+# fetal_brain_seg
 
-This repository implements Track B from `OpenEvolve_Spec_FeTA.md`, plus the shared
-Track A artifacts it depends on (`src/metrics.py`, `results/splits.json`).
+### Work Division
+
+1. Data exploration + preprocessing (Ilaria)
+2. Data splitting + model training + hyperparameter tuning (Caolan)
+3. Model validation (Sonia)
+4. OpenEvolve (Viet, James)
+5. Model interpretability (Albee)
+6. Paper (Noma)
+
+---
+
+# Track B — OpenEvolve
+
+This tree implements Track B from `OpenEvolve_Spec_FeTA.md`. It imports the
+shared Track A artifacts once they exist (`src/metrics.py`, `results/splits.json`).
+Those files are owned by Sonia and Caolan and are not part of this push.
 
 **This Mac is not the scientific host.** Production gates require an RTX A6000
 (CUDA, 48 GB). Local `FETA_PROFILE=smoke` runs are for plumbing checks only.
