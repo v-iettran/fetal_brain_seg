@@ -37,3 +37,4 @@ openevolve/openevolve_output/
 # Secrets
 .env
 .env.*
+feta_2.4/
