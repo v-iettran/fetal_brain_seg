@@ -6,7 +6,10 @@
   "openevolve/harness/device.py": "4be7c2e66ea2eb9e5ee1efd22c854b07337abaf7c17132d4eab7378b49576dc9",
   "openevolve/harness/train_loop.py": "70599392dbf0fc04e518b282c58b99b01dc23bbb4ad5c7a154e9f223c9bcba5a",
   "openevolve/harness/infer.py": "675f63679022f41351f787f962301967bd246eb58d650042d465c30040446b58",
-  "openevolve/harness/guards.py": "82802ab7b1538d0ad15c37d26a7fe054f5b3fabf44dda9baa2fa88493afc72dc",
+  "openevolve/harness/guards.py": "82a8754d673925df05baa88c48ba422d9c668a659e2f4926c28ea2ada9b95c6f",
   "openevolve/evaluator.py": "5402c21d7b81813270d840ff289939ea715bcb67d58f063bb9f8c3cae1144213",
-  "src/metrics.py": "1dc54a74fbb87b9eb52787a041f41164fac05e4496c68c03aeb87874cb16c150"
+  "openevolve/evaluator_impl.py": "f5b7122ded54c2b6acf374e63f49c82e846a6743c9ee319216c9eea4d5a3c028",
+  "openevolve/candidate_runner.py": "1a7cbadf94832601b69fe65302d4e9136d654e49a98a0bc19cb9ebe5a7fa3ad6",
+  "openevolve/candidate_worker.py": "3d184fbd7b5162117139c2cd9f3bf14300361b825f1987c7bcf81a86cca82884",
+  "src/metrics.py": "68c91a6e46c4a3091a36cccbc0dfb8a0be59b174fccf9f37812cdb8c5d14c880"
 }

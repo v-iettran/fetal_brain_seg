@@ -13,9 +13,9 @@
 
 # Track B — OpenEvolve
 
-This tree implements Track B from `OpenEvolve_Spec_FeTA.md`. It imports the
-shared Track A artifacts once they exist (`src/metrics.py`, `results/splits.json`).
-Those files are owned by Sonia and Caolan and are not part of this push.
+This tree implements Track B from `OpenEvolve_Spec_FeTA.md`. OpenEvolve imports
+the team-owned `src/metrics.py::compute_metrics` through a frozen adapter, so
+Track A/manual and Track B/evolved models use identical scoring code.
 
 **This Mac is not the scientific host.** Production gates require an RTX A6000
 (CUDA, 48 GB). Local `FETA_PROFILE=smoke` runs are for plumbing checks only.
@@ -59,7 +59,7 @@ PYTHONPATH=openevolve:. pytest tests -m "not cuda and not llm and not slow"
 Reduced MPS loop check:
 
 ```bash
-FETA_PROFILE=smoke PYTHONPATH=openevolve:. pytest tests/test_seed.py tests/test_guards.py tests/test_metrics.py tests/test_prepare.py tests/test_config_and_targets.py
+FETA_PROFILE=smoke PYTHONPATH=openevolve:. pytest tests/test_seed.py tests/test_guards.py tests/test_metrics.py tests/test_openevolve_metric_adapter.py tests/test_prepare.py tests/test_config_and_targets.py
 ```
 
 ## Prompt leakage gate
@@ -68,6 +68,9 @@ FETA_PROFILE=smoke PYTHONPATH=openevolve:. pytest tests/test_seed.py tests/test_
 paid LLM call. Automated lint cannot catch paraphrases.
 
 ## Production (A6000)
+
+See `openevolve/REMOTE_RUNBOOK.md` for the complete ordered control and
+full-experiment procedure, gates, resume instructions, and expected outputs.
 
 ```bash
 chmod +x docker/run_a6000.sh

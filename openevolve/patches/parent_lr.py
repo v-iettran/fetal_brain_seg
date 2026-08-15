@@ -16,7 +16,11 @@ def apply() -> None:
     import openevolve
     from openevolve import evaluator as ev
 
-    version = getattr(openevolve, "__version__", "unknown")
+    version = getattr(openevolve, "__version__", None)
+    if version is None:
+        from importlib.metadata import version as package_version
+
+        version = package_version("openevolve")
     if version != REQUIRED_VERSION:
         raise RuntimeError(
             f"parent_lr patch is pinned to OpenEvolve {REQUIRED_VERSION}, found {version}"

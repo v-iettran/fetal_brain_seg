@@ -11,10 +11,12 @@ license = { text = "MIT" }
 authors = [{ name = "FeTA project team" }]
 dependencies = [
     "openevolve==0.3.2",
+    "openai>=1,<2",
     "torch>=2.2",
     "nibabel>=5.2",
     "numpy>=1.26",
     "scipy>=1.12",
+    "scikit-image>=0.26",
     "optuna>=3.6",
     "pyyaml>=6.0",
     "dacite>=1.9.2",

@@ -35,6 +35,9 @@ FROZEN_RELATIVE = [
     "openevolve/harness/infer.py",
     "openevolve/harness/guards.py",
     "openevolve/evaluator.py",
+    "openevolve/evaluator_impl.py",
+    "openevolve/candidate_runner.py",
+    "openevolve/candidate_worker.py",
     "src/metrics.py",
 ]
 

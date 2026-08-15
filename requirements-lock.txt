@@ -1,10 +1,12 @@
 # Pinned from the implementation machine. Production A6000 should use the same
 # OpenEvolve version; PyTorch may be a CUDA wheel instead of this MPS build.
 openevolve==0.3.2
+openai==1.109.1
 torch==2.11.0
 nibabel==5.4.2
 numpy==2.3.1
 scipy==1.17.1
+scikit-image==0.26.0
 optuna==4.9.0
 PyYAML==6.0.3
 dacite==1.9.2

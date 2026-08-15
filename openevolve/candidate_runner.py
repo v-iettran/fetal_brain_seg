@@ -27,6 +27,8 @@ def run_isolated(
     env["PYTHONPATH"] = os.pathsep.join(
         [str(TRACK_B), str(REPO_ROOT), env.get("PYTHONPATH", "")]
     )
+    if env.get("FETA_PROFILE") == "smoke":
+        env.setdefault("PYTORCH_ENABLE_MPS_FALLBACK", "1")
     if extra_env:
         env.update(extra_env)
     with tempfile.TemporaryDirectory(prefix="feta_eval_") as scratch:

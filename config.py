@@ -34,5 +34,5 @@ MIAL_SUBJECTS = tuple(f"sub-{i:03d}" for i in range(1, 41))
 IRTK_SUBJECTS = tuple(f"sub-{i:03d}" for i in range(41, 81))
 ALL_SUBJECTS = MIAL_SUBJECTS + IRTK_SUBJECTS
 
-# Documented HD95 penalty when a class is present in GT but absent in the prediction.
-HD95_EMPTY_PENALTY_MM = 100.0
+# Shared metric convention when exactly one mask is empty.
+HD95_EMPTY_PENALTY_MM = 374.0

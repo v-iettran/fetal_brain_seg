@@ -121,4 +121,24 @@ claims use the CUDA A6000 profile only.
 
 ## Amendments
 
-*(none)*
+### 2026-08-15 — A1: shared metric implementation
+
+Track B will use the team-owned `src/metrics.py::compute_metrics` implementation
+for proxy fitness and final evaluation. This replaces the provisional Track B
+metric implementation so OpenEvolve and manually implemented models are scored
+by the same code.
+
+Consequences:
+
+* Primary fitness remains mean foreground Dice over classes 1–7; the search
+  objective is unchanged. The earlier named
+  `src.metrics.mean_foreground_dice` reference is superseded by
+  `src.metrics.compute_metrics(...)[\"mean\"][\"dice\"]`.
+* Per-class Dice is read from the shared result to compute worst-class Dice.
+* Secondary HD95, volume-similarity, and Euler-difference reports inherit the
+  shared implementation exactly.
+* The one-empty-mask HD95 penalty is therefore 374 mm, replacing the
+  provisional 100 mm value.
+* `src/metrics.py` and the Track B adapter are frozen by SHA-256 before a run.
+
+This amendment was recorded before any paid LLM call or production evolution.

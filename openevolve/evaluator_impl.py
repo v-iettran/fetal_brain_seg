@@ -17,7 +17,7 @@ from harness.constants import IN_CHANNELS, NUM_CLASSES
 from harness.device import get_device
 from harness.infer import predict
 from harness.train_loop import train
-from src.metrics import evaluate_segmentation, mean_foreground_dice
+from src.metrics import compute_metrics
 
 SEED_PATH = Path(__file__).resolve().parent / "initial_program.py"
 PARENT_SIDECAR_ENV = "FETA_PARENT_SIDECAR"
@@ -47,6 +47,18 @@ def _parent_best_lr(program_path: str) -> float | None:
             if lr is not None:
                 return float(lr)
     return None
+
+
+def shared_dice_summary(
+    prediction: np.ndarray,
+    ground_truth: np.ndarray,
+    voxel_spacing: tuple[float, float, float],
+) -> tuple[float, list[float]]:
+    """Adapt the shared Track A metric output to the Track B fitness contract."""
+    scores = compute_metrics(prediction, ground_truth, voxel_spacing)
+    mean_dice = float(scores["mean"]["dice"])
+    per_class_dice = [float(scores[c]["dice"]) for c in range(1, NUM_CLASSES)]
+    return mean_dice, per_class_dice
 
 
 def _suggest_params(trial, parent_lr: float | None) -> dict:
@@ -129,10 +141,10 @@ def _score_cases(model, case_ids, cache_dir) -> tuple[float, list[float], str | 
             guards.assert_prediction_sane(pred, reference_shape=image.shape)
         except AssertionError as exc:
             return 0.0, [0.0] * 7, f"{sid}: {exc}"
-        scores = evaluate_segmentation(pred, label, (0.5, 0.5, 0.5))
-        dices.append(scores["mean_dice"])
-        for i, c in enumerate(range(1, 8)):
-            per_class_acc[i].append(scores["per_class"][c]["dice"])
+        mean_dice, per_class_dice = shared_dice_summary(pred, label, (0.5, 0.5, 0.5))
+        dices.append(mean_dice)
+        for class_scores, score in zip(per_class_acc, per_class_dice):
+            class_scores.append(score)
     per_class = [float(np.mean(xs)) for xs in per_class_acc]
     return float(np.mean(dices)), per_class, None
 
@@ -163,6 +175,10 @@ def run_stage2(program_path: str) -> dict:
     proxy_ids = subs["proxy_train"]
     optuna_ids = subs["optuna_selection"]
     fitness_ids = subs["fitness"]
+    if settings.PROFILE == "smoke":
+        proxy_ids = proxy_ids[:2]
+        optuna_ids = optuna_ids[:1]
+        fitness_ids = fitness_ids[:1]
 
     def objective(trial):
         params = _suggest_params(trial, parent_lr)
