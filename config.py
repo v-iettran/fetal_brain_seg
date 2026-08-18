@@ -15,6 +15,9 @@ CASES_PATH = RESULTS_DIR / "cases.csv"
 FINGERPRINT_PATH = RESULTS_DIR / "fingerprint.json"
 TRACK_B_SUBSPLITS_PATH = RESULTS_DIR / "trackB_subsplits.json"
 
+NNUNET_RAW_DIR = REPO_ROOT / "nnUNet_raw"
+NNUNET_DATASET_NAME = "Dataset001_FeTA"
+
 CLASS_NAMES = {
     0: "background",
     1: "eCSF",
